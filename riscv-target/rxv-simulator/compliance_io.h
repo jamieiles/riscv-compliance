@@ -23,17 +23,16 @@
 #define STRINGIFY(x) #x
 #define TOSTRING(x)  STRINGIFY(x)
 
-#define RVTEST_CUSTOM1 0x0005200B
-
 #define RVTEST_IO_INIT
 /*
- * Use a custom instruction to signal to the simulator that we have an IO
- * request and put mapping from PC to string in a well defined section name.
- * The simulator can then find the string in memory and print it to stderr.
+ * Use a nop instruction to signal to the simulator that we have a potential
+ * IO request and put mapping from PC to string in a well defined section
+ * name.  The simulator can then find the string in memory and print it to
+ * stderr.
  */
 #define RVTEST_IO_WRITE_STR(_SP, _STR)					\
 800000:									\
-	.word RVTEST_CUSTOM1;						\
+	nop;								\
 .pushsection ".rodata.str1.1", "a";					\
 800001:									\
 	.asciz _STR;							\
@@ -53,7 +52,7 @@
  */
 #define RVTEST_IO_ASSERT_GPR_EQ(_SP, _R, _I)				\
 900000:									\
-	.word RVTEST_CUSTOM1;						\
+	nop;								\
 .pushsection ".rodata.str1.1", "a";					\
 900001:									\
 	.asciz TOSTRING(_R);						\
