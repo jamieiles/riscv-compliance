@@ -5,8 +5,10 @@ ifeq ($(shell command -v $(TARGET_SIM) 2> /dev/null),)
     $(error Target simulator executable '$(TARGET_SIM)` not found)
 endif
 
+RXV_SIMULATOR ?= software
+
 RUN_TARGET=\
-    $(TARGET_SIM) \
+    $(TARGET_SIM) $(RXV_SIMULATOR) \
     $(work_dir_isa)/$< 2> $(work_dir_isa)/$@ 1>$(work_dir_isa)/$(*).signature.output
 
 RISCV_PREFIX   ?= riscv64-unknown-elf-
