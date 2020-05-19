@@ -9,16 +9,16 @@ RXV_SIMULATOR ?= software
 
 RUN_TARGET=\
     $(TARGET_SIM) $(RXV_SIMULATOR) \
-    $(work_dir_isa)/$< 2> $(work_dir_isa)/$@ 1>$(work_dir_isa)/$(*).signature.output
+    $< 2> $@ 1>$(*).signature.output
 
 RISCV_PREFIX   ?= riscv64-unknown-elf-
 RISCV_GCC      ?= $(RISCV_PREFIX)gcc
-RISCV_GCC_OPTS ?= -static -mcmodel=medany -fvisibility=hidden -nostdlib -nodefaultlibs
+RISCV_GCC_OPTS ?= -static -mcmodel=medany -fvisibility=hidden -nostdlib -nodefaultlibs -march=rv32i -mabi=ilp32
 
 COMPILE_TARGET=\
 	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) \
 		-I$(ROOTDIR)/riscv-test-env/ \
 		-I$(ROOTDIR)/riscv-test-env/p/ \
 		-I$(TARGETDIR)/$(RISCV_TARGET)/ \
-		-T$(ROOTDIR)/riscv-test-env/p/link.ld \
-		$$< -o $(work_dir_isa)/$$@
+		-T$(ROOTDIR)/riscv-test-env/p/link.ld $$< \
+		-o $$@
