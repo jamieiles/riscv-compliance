@@ -27,7 +27,8 @@ else
 endif
 
 export ROOTDIR    = $(shell pwd)
-export WORK       = $(ROOTDIR)/work
+export O	 ?= $(ROOTDIR)
+export WORK       = $(O)/work
 export SUITEDIR   = $(ROOTDIR)/riscv-test-suite/$(RISCV_ISA)
 export TARGETDIR ?= $(ROOTDIR)/riscv-target
 

@@ -2,9 +2,9 @@
 # Makefile for riscv-tests/isa
 #-----------------------------------------------------------------------
 
-act_dir := .
+act_dir := $(shell pwd)
 src_dir := $(act_dir)/src
-work_dir := $(ROOTDIR)/work
+work_dir := $(O)/work
 work_dir_isa := $(work_dir)/$(RISCV_ISA)
 
 include $(act_dir)/Makefrag
